@@ -7,8 +7,8 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 
 class ContactController extends Controller {
-    public function submit(ContactRequest $request) {
-     
+    public function store(ContactRequest $request) {
+
      $contact = new Contact();
      $contact->name = $request->input('name');
      $contact->email = $request->input('email');
@@ -17,13 +17,13 @@ class ContactController extends Controller {
 
      $contact->save();
 
-     return redirect()->route('home')->with('success', 'Сообщение было добавлено');
+     return redirect()->route('contacts.index')->with('success', 'Контакт был добавлен');
 
     }
 
 
 
-    public function allData() {
+    public function index() {
       $contact = new Contact();
       // dd($contact->all());
       return view('messages', ['data' => $contact->all()]);
@@ -38,34 +38,38 @@ class ContactController extends Controller {
       //where() - условие
     }
 
-    public function showOneMessage($id) {
+    public function show($id) {
       $contact = new Contact();
       return view('one-messages', ['data' => $contact->find($id)]);
     }
 
-    public function updateMessage($id) {
+    public function edit($id) {
        $contact = new Contact();
        return view('update-messages', ['data' => $contact->find($id)]);
     }
 
 
-    public function updateMessageSubmit($id, ContactRequest $request) {
-     
+    public function update($id, ContactRequest $request) {
+
      $contact = Contact::find($id);
-     $contact->name = $request->input('name');
+/*     $contact->name = $request->input('name');
      $contact->email = $request->input('email');
      $contact->subject = $request->input('subject');
      $contact->message = $request->input('message');
+     $contact->save();*/
 
-     $contact->save();
+        $input = $request->all();
+        $contact->update($input);
 
-     return redirect()->route('contact-data-one', $id)->with('success', 'Сообщение было обновлено');
+
+     return redirect()->route('contacts.show', $id)->with('success', 'Контакт был обновлен');
 
     }
 
-    public function deleteMessage($id) 
+    public function destroy($id)
     {
       $contact = Contact::find($id)->delete();
-      return redirect()->route('contact-data')->with('success', 'Сообщение было удалено');
+     return true;
+
     }
 }

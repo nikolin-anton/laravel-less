@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title-block')
 	Страница записи
@@ -8,10 +8,13 @@
 @section('content')
 	<h1>Обновление записи</h1>
 
-	
 
-	<form action="{{route('contact-update-submit', $data->id)}}" method="post">
-		@csrf
+
+	<form action="{{route('contacts.update', $data->id)}}" method="post">
+        @csrf
+        {{--		@csrf_field--}}
+{{--        {{ method_field('PUT') }}--}}
+
 		<div class="form-group">
 			<label for="name">Введите имя</label>
 			<input type="text" value="{{$data->name}}" name="name" id="name" class="form-control">

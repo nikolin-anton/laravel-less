@@ -10,24 +10,27 @@ Route::get('/about', function () {
     return view('about');
 })-> name('about');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+//Вывод всех контактов
+Route::get('/contacts', 'App\Http\Controllers\ContactController@index')->name('contacts.index');
 
-Route::post('/contact/submit', 'App\Http\Controllers\ContactController@submit')->name('contact-form');
+//Добавить контакт
+Route::get('/contacts/create', function () {
+    return view('contacts');
+})->name('contacts.create');
 
-Route::get('/contact/all', 'App\Http\Controllers\ContactController@allData')->name('contact-data');
-
-Route::get('/contact/all/{id}', 'App\Http\Controllers\ContactController@showOneMessage')->name('contact-data-one');
-
-Route::get('/contact/all/{id}/update', 'App\Http\Controllers\ContactController@updateMessage')->name('contact-update');
-
-Route::post('/contact/all/{id}/update', 'App\Http\Controllers\ContactController@updateMessageSubmit')->name('contact-update-submit');
-
-Route::get('/contact/all/{id}/delete', 'App\Http\Controllers\ContactController@deleteMessage')->name('contact-delete');
+Route::post('/contacts', 'App\Http\Controllers\ContactController@store')->name('contacts.store');
 
 
- 
+Route::get('/contacts/{contact}', 'App\Http\Controllers\ContactController@show')->name('contacts.show');
+
+Route::get('/contacts/{contact}/edit', 'App\Http\Controllers\ContactController@edit')->name('contacts.edit');
+
+Route::post('/contacts/{contact}', 'App\Http\Controllers\ContactController@update')->name('contacts.update');
+
+Route::delete('/contacts/{contact}', 'App\Http\Controllers\ContactController@destroy')->name('contacts.destroy');
+
+
+
 
 Auth::routes();
 
