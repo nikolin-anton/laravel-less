@@ -10,6 +10,7 @@
 		<p>{{$data->email}}</p>
 		<p>{{$data->message}}</p>
 		<p><small>{{$data->created_at}}</small></p>
+        <p><img src="{{asset('/storage/'.$data->image)}}" alt="" width="400px" height="300"></p>
 		<a href="{{route('contacts.edit', $data->id)}}"><button class="btn btn-primary">Редактировать</button></a>
 		<a href="{{route('contacts.destroy', $data->id)}}"><button class="btn btn-danger" id="delete_contact" data-id="{{$data->id}}">Удалить</button></a>
 	</div>

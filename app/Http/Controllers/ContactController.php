@@ -14,6 +14,7 @@ class ContactController extends Controller {
      $contact->email = $request->input('email');
      $contact->subject = $request->input('subject');
      $contact->message = $request->input('message');
+     $contact->image = $request->file('image')->store('uploads', 'public');
 
      $contact->save();
 
@@ -57,7 +58,7 @@ class ContactController extends Controller {
      $contact->subject = $request->input('subject');
      $contact->message = $request->input('message');
      $contact->save();*/
-
+        $contact->image = $request->file('image')->store('uploads', 'public');
         $input = $request->all();
         $contact->update($input);
 
